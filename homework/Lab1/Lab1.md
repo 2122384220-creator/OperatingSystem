@@ -1,6 +1,6 @@
 # Lab1：操作系统实验环境验收
 
-> **作业目标**：用命令输出和截图证明 VMware、Ubuntu、网络、虚拟硬件以及课程必需的 C 开发工具链已正确安装，并成功编译运行第一个 C 程序。
+> **作业目标**：用命令输出和截图证明 VMware、Ubuntu、网络、虚拟硬件以及课程必需的软件（含终端编辑器 vim 与 SSH 服务端）已正确安装，并能用 vim 完成一次文件的创建与保存。
 >
 > **前置条件**：已按 [`操作手册.md`](操作手册.md) 完成虚拟机安装、国内软件源配置和开发工具链配置。
 >
@@ -180,12 +180,14 @@ df -h /
 
 ---
 
-## 任务五：检查开发工具链并运行第一个 C 程序
+## 任务五：检查软件安装并用 vim 编写文件
+
+> 本任务只检查软件是否按要求装好，以及能否用 vim 创建并保存文件。第一次实验不编写、不编译 C 程序。
 
 ### 第一步：确认软件包已安装
 
 ```bash
-dpkg-query -W -f='${Package}\t${Version}\n' open-vm-tools build-essential gdb git manpages-dev
+dpkg-query -W -f='${Package}\t${Version}\n' open-vm-tools build-essential gdb git manpages-dev vim openssh-server
 ```
 
 期望每行都输出各自的已安装版本号。某一行没有版本号或提示未安装，说明该软件包缺失。
@@ -206,9 +208,9 @@ systemctl is-active open-vm-tools
 
 期望输出 `active`。
 
-### 第四步：确认 C 工具链可用
+### 第四步：确认 C 工具链已安装
 
-依次执行：
+本次实验不编写、不编译程序，但要求把后面实验要用的 C 工具链先装好，所以这里只查版本。依次执行：
 
 ```bash
 gcc --version
@@ -228,7 +230,31 @@ git --version
 
 期望四条命令各输出一行版本信息。任意一条提示 `command not found`，说明对应的软件包没有装上，按 [`操作手册.md`](操作手册.md) 第十一节处理后再重新验证。
 
-### 第五步：编译并运行 hello.c
+### 第五步：确认 SSH 服务端已安装并在监听
+
+```bash
+ssh -V
+```
+
+期望输出形如 `OpenSSH_9.6p1` 的版本信息。注意这里是大写字母 `V`，查的是 SSH 客户端的版本。
+
+```bash
+ss -lnt | grep ':22'
+```
+
+期望看到一行包含 `LISTEN` 和 `:22` 的输出。
+
+> Ubuntu 24.04 的 SSH 默认由 `ssh.socket` 按需激活，`systemctl is-active ssh` 显示 `inactive` 属于正常现象，判断标准以 22 端口是否处于监听为准。
+
+### 第六步：确认 vim 可用
+
+```bash
+vim --version
+```
+
+期望第一行形如 `VIM - Vi IMproved 9.1`。如果提示 `command not found`，或版本行中带 `Small version`（装的是精简版 `vim-tiny`），按 [`操作手册.md`](操作手册.md) 第十一节「问题 2」安装完整版 vim 后再重新验证。
+
+### 第七步：用 vim 创建并保存 hello.txt
 
 进入你建立的实验目录（示例）：
 
@@ -236,35 +262,48 @@ git --version
 cd ~/oslab/Lab1
 ```
 
-确认 `hello.c` 就在这里：
+用 vim 创建文件：
 
 ```bash
-ls hello.c
+vim hello.txt
 ```
 
-编译：
+按 `i` 进入编辑模式，输入下面的内容（学号姓名换成自己的），按 `Esc` 退出编辑，再输入 `:wq` 加回车保存并退出：
+
+```text
+操作系统 Lab1 环境验收记录
+学号：2026333001
+姓名：朱泽科
+
+本文件由本人在 Ubuntu 24.04 虚拟机中使用 vim 创建并保存。
+第一次实验只安装软件，不编写和编译 C 程序。
+
+已安装的课程软件：
+open-vm-tools
+open-vm-tools-desktop
+build-essential
+gdb
+git
+manpages-dev
+vim
+openssh-server
+```
+
+回到终端后把文件读回来，确认内容真的写进去了：
 
 ```bash
-gcc -std=c11 -Wall -Wextra -Werror -g hello.c -o hello
+cat hello.txt
 ```
 
-编译成功时 `gcc` 不会有任何输出。如果出现 `error:` 或 `warning:`，按提示的行号回到 `hello.c` 修改后重新编译。
+期望输出与你输入的内容一致，其中学号和姓名是本人的。
 
-运行：
+> `hello.txt` 是本作业的必交文件，文件名必须严格写成小写 `hello.txt`，内容写成纯文本即可。文件的非空行不少于 10 行，并且必须写明本人的学号与姓名。自动审核会在 AI 检查之前先统计非空行数，行数不足会直接判为“文件内容无效”。
 
-```bash
-./hello
-```
-
-期望输出两行：第一行是 `Hello, Operating Systems!`，第二行是你填在注释里的**本人学号与姓名**。
-
-> `hello.c` 是本作业的必交文件。文件开头要保留写明本人学号姓名的注释块，整个文件的非空行不少于 10 行。自动审核会在 AI 检查之前先统计非空行数，行数不足会直接判为“文件内容无效”。
-
-### 第六步：验证 VMware Tools 桌面功能
+### 第八步：验证 VMware Tools 桌面功能
 
 用鼠标拖动 VMware 虚拟机窗口的边缘改变窗口大小，观察 Ubuntu 桌面分辨率是否自动调整。
 
-### 第七步：填写检查结果
+### 第九步：填写检查结果
 
 | 项目 | 你的填写内容 |
 | :--- | :--- |
@@ -275,11 +314,13 @@ gcc -std=c11 -Wall -Wextra -Werror -g hello.c -o hello
 | `make` 版本 | |
 | `gdb` 版本 | |
 | `git` 版本 | |
-| `gcc` 编译 `hello.c` 是否成功 | |
-| `./hello` 的运行输出 | |
-| 五项组件是否全部验收合格 | |
+| `ssh -V` 的版本信息 | |
+| 22 端口是否处于监听 | |
+| `vim --version` 的版本信息 | |
+| `cat hello.txt` 的输出 | |
+| 软件是否全部安装合格 | |
 
-![工具链与第一个程序](imgs/lab1-toolchain.png)
+![软件安装与 vim 写文件](imgs/lab1-toolchain.png)
 
 ---
 
@@ -292,7 +333,9 @@ gcc -std=c11 -Wall -Wextra -Werror -g hello.c -o hello
 | 虚拟机联网 | 具有 IP 和默认路由，IP 联通与 DNS 解析正常 | |
 | 国内软件源 | 已换成国内镜像站，`sudo apt update` 成功 | |
 | CPU、内存、存储 | 至少 2 核、4GB、40GB，且与宿主机档位匹配 | |
-| C 开发工具链 | `gcc`、`make`、`gdb`、`git` 可用，`hello.c` 能编译运行 | |
+| C 开发工具链 | `gcc`、`make`、`gdb`、`git` 已安装并能输出版本信息（本次不编译程序） | |
+| vim | `vim --version` 显示完整版，且能用它创建并保存 `hello.txt` | |
+| OpenSSH Server | `openssh-server` 已安装，`ssh -V` 有版本信息，22 端口处于监听 | |
 | VMware Tools | 软件包已安装，`open-vm-tools` 为 active，窗口缩放分辨率自动适配 | |
 
 简要说明你遇到的问题、解决方法，以及当前环境是否可以继续完成后续实验：
@@ -306,7 +349,7 @@ gcc -std=c11 -Wall -Wextra -Werror -g hello.c -o hello
 - 截图须清晰，菜单和终端文字可读。
 - 终端截图应同时显示完整命令和其输出。
 - 一张截图可以包含同一任务下的多条命令及其输出，但每条命令和它的输出必须能对应上。
-- 截图中应能看到学生自己的虚拟机、本人学号姓名或本人程序的运行结果，不得直接使用他人截图。
+- 截图中应能看到学生自己的虚拟机、本人学号姓名或本人创建的文件内容，不得直接使用他人截图。
 - 必须使用电脑自带的截图功能，严禁使用手机拍摄屏幕。
 - 所有截图放在 `imgs/` 目录中，文件名与下表一致。
 
@@ -316,19 +359,19 @@ gcc -std=c11 -Wall -Wextra -Werror -g hello.c -o hello
 | Ubuntu 当前版本、安装介质版本和 `x86_64` 架构 | `imgs/lab1-ubuntu-version.png` |
 | IP、默认路由、IP ping、域名 ping 和 `apt update` 成功 | `imgs/lab1-network.png` |
 | `nproc`、`free -h`、`lsblk`、`df -h /` 输出 | `imgs/lab1-resources.png` |
-| 工具链版本/状态，以及 `hello.c` 的编译命令与运行结果 | `imgs/lab1-toolchain.png` |
+| 各软件包版本/状态，以及用 vim 创建 `hello.txt` 的画面和 `cat hello.txt` 的输出 | `imgs/lab1-toolchain.png` |
 
 ---
 
 ## 提交要求
 
-在自己的“学号姓名”文件夹下新建 `Lab1/`，提交填写完整的 `Lab1.md`、你自己编写的 `hello.c` 和全部截图：
+在自己的“学号姓名”文件夹下新建 `Lab1/`，提交填写完整的 `Lab1.md`、用 vim 创建的 `hello.txt` 和全部截图：
 
 ```text
 学号姓名/
 └── Lab1/
     ├── Lab1.md
-    ├── hello.c
+    ├── hello.txt
     └── imgs/
         ├── lab1-vmware-version.png
         ├── lab1-ubuntu-version.png
@@ -337,9 +380,9 @@ gcc -std=c11 -Wall -Wextra -Werror -g hello.c -o hello
         └── lab1-toolchain.png
 ```
 
-> **注意**：`imgs` 全部小写；`hello.c` 的文件名也必须严格写成小写，不能写成 `Hello.c` 或 `hello.C`。文件夹名和截图文件名区分大小写，必须与上面完全一致，否则图片引用会失效。
+> **注意**：`imgs` 全部小写；`hello.txt` 的文件名也必须严格写成小写，不能写成 `Hello.txt` 或 `hello.TXT`。文件夹名和截图文件名区分大小写，必须与上面完全一致，否则图片引用会失效。
 >
-> **只提交上面列出的文件。** 建议在虚拟机里单独建一个实验目录（如 `~/oslab/Lab1`）写代码、编译，确认无误后再把 `hello.c` 复制进仓库的 `Lab1/` 里。`gcc` 生成的可执行文件 `hello` 没有扩展名、不属于本次作业的提交内容，如果你是在仓库目录里直接编译的，提交前请先把 `hello` 删掉，再用 `git status` 确认变更文件只有上面这 7 个。
+> **只提交上面列出的文件。** 建议先在虚拟机里单独建一个实验目录（如 `~/oslab/Lab1`）练习，确认无误后再把 `hello.txt` 复制进仓库的 `Lab1/` 里。提交前用 `git status` 确认变更文件只有上面这 7 个。
 
 ---
 
