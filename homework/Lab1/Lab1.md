@@ -27,7 +27,7 @@ VMware Workstation Pro 26H1 for Windows
 | 已安装的 VMware 完整版本号 | |
 | 是否为教师指定版本 | |
 
-![VMware 版本](imgs/lab1-vmware-version.png)
+![VMware 版本](imgs/lab1_vmware_version.png)
 
 ---
 
@@ -66,7 +66,7 @@ sudo cat /var/log/installer/media-info
 | 处理器架构 | |
 | 是否为教师提供的 Ubuntu 24.04.4 LTS Desktop amd64 | |
 
-![Ubuntu 版本](imgs/lab1-ubuntu-version.png)
+![Ubuntu 版本](imgs/lab1_ubuntu_version.png)
 
 ---
 
@@ -126,7 +126,7 @@ sudo apt update
 | `sudo apt update` 是否成功 | |
 | 联网是否合格 | |
 
-![虚拟机联网](imgs/lab1-network.png)
+![虚拟机联网](imgs/lab1_network.png)
 
 ---
 
@@ -176,7 +176,7 @@ df -h /
 | 根分区可用空间 | |
 | 资源分配是否符合对应档位 | |
 
-![虚机资源](imgs/lab1-resources.png)
+![虚机资源](imgs/lab1_resources.png)
 
 ---
 
@@ -308,7 +308,7 @@ cat hello.txt
 | `cat hello.txt` 的输出 | |
 | 软件是否全部安装合格 | |
 
-![软件安装与 vim 写文件](imgs/lab1-toolchain.png)
+![软件安装与 vim 写文件](imgs/lab1_toolchain.png)
 
 ---
 
@@ -343,11 +343,11 @@ cat hello.txt
 
 | 截图内容 | 文件名 |
 | :--- | :--- |
-| VMware Workstation About 页面，能看到完整版本 | `imgs/lab1-vmware-version.png` |
-| Ubuntu 当前版本、安装介质版本和 `x86_64` 架构 | `imgs/lab1-ubuntu-version.png` |
-| IP、默认路由、IP ping、域名 ping 和 `apt update` 成功 | `imgs/lab1-network.png` |
-| `nproc`、`free -h`、`lsblk`、`df -h /` 输出 | `imgs/lab1-resources.png` |
-| 各软件包版本/状态，以及用 vim 创建 `hello.txt` 的画面和 `cat hello.txt` 的输出 | `imgs/lab1-toolchain.png` |
+| VMware Workstation About 页面，能看到完整版本 | `imgs/lab1_vmware_version.png` |
+| Ubuntu 当前版本、安装介质版本和 `x86_64` 架构 | `imgs/lab1_ubuntu_version.png` |
+| IP、默认路由、IP ping、域名 ping 和 `apt update` 成功 | `imgs/lab1_network.png` |
+| `nproc`、`free -h`、`lsblk`、`df -h /` 输出 | `imgs/lab1_resources.png` |
+| 各软件包版本/状态，以及用 vim 创建 `hello.txt` 的画面和 `cat hello.txt` 的输出 | `imgs/lab1_toolchain.png` |
 
 ---
 
@@ -360,14 +360,15 @@ cat hello.txt
 └── Lab1/
     ├── Lab1.md
     └── imgs/
-        ├── lab1-vmware-version.png
-        ├── lab1-ubuntu-version.png
-        ├── lab1-network.png
-        ├── lab1-resources.png
-        └── lab1-toolchain.png
+        ├── lab1_vmware_version.png
+        ├── lab1_ubuntu_version.png
+        ├── lab1_network.png
+        ├── lab1_resources.png
+        └── lab1_toolchain.png
 ```
 
 > **注意**：`imgs` 全部小写；文件夹名和截图文件名区分大小写，必须与上面完全一致，否则图片引用会失效。
+> 文件名里的分隔符是**下划线 `_`**，不是减号 `-`：要写 `lab1_vmware_version.png`，不要写成 `lab1-vmware-version.png`。
 >
 > **只提交上面列出的文件。** 本作业只有 `Lab1.md` 和 5 张截图，不需要提交任何代码或文档：练习用的 `hello.txt` 请留在虚拟机的 `~/oslab/Lab1` 里，不要复制进仓库。提交前用 `git status` 确认变更文件只有上面这 6 个。
 
