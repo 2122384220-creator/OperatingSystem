@@ -60,6 +60,10 @@ students:
     name: 刘银柳
     github: liuyinliu
     active: true
+  "2026333010":
+    name: 龙一涵
+    github: Axunee
+    active: true
   "2026333011":
     name: 张志杰
     github: zzj08
@@ -107,6 +111,10 @@ students:
   "2026333026":
     name: 杨靖且
     github: yjq150
+    active: true
+  "2026333027":
+    name: 张东宇
+    github: YOLONB666
     active: true
   "2026333028":
     name: 余安棋
