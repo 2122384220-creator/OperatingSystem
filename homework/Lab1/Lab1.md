@@ -61,14 +61,15 @@ sudo cat /var/log/installer/media-info
 
 | 项目 | 你的填写内容 |
 | :--- | :--- |
-| Ubuntu 当前完整版本 | |
-| 安装介质的版本 | |
-| 处理器架构 | |
-| 是否为教师提供的 Ubuntu 24.04.4 LTS Desktop amd64 | |
+| Ubuntu 当前完整版本 |Ubuntu 24.04.4 LTS |
+| 安装介质的版本 |24.04.4 LTS (Noble Numbat) |
+| 处理器架构 |x86_64
+ |
+| 是否为教师提供的 Ubuntu 24.04.4 LTS Desktop amd64 |是 |
 
 ![Ubuntu 版本](imgs/lab1_ubuntu_version.png)
 
----
+-c:\Users\Sunshine121\Pictures\Screenshots\屏幕截图 2026-10-02 211511.png--
 
 ## 任务三：检查虚拟机联网
 
@@ -122,16 +123,17 @@ sudo apt update
 
 | 项目 | 你的填写内容 |
 | :--- | :--- |
-| 虚拟机 IP 地址 | |
-| 网络模式 | NAT / 其他： |
-| ping `223.5.5.5` 是否成功 | |
-| ping `mirrors.tuna.tsinghua.edu.cn` 是否成功 | |
-| 软件源（官方源 / 已换的镜像站） | |
-| `sudo apt update` 是否成功 | |
-| 联网是否合格 | |
+| 虚拟机 IP 地址 |192.168.199.129 
+ |
+| 网络模式 | NAT  |
+| ping `223.5.5.5` 是否成功 |是 |
+| ping `mirrors.tuna.tsinghua.edu.cn` 是否成功 |是 |
+| 软件源（官方源 ） |
+| `sudo apt update` 是否成功 |是 |
+| 联网是否合格 |是 |
 
 ![虚拟机联网](imgs/lab1_network.png)
-
+![alt text](image.png)
 ---
 
 ## 任务四：检查 CPU、内存和存储分配
@@ -174,14 +176,14 @@ df -h /
 | :--- | :--- |
 | 宿主机内存 / CPU 核心 / 存放盘剩余空间 | |
 | 选择的配置档位 | 最低可用档 / 课程推荐档 / 宽裕档 |
-| 虚拟 CPU 核心数 | |
+| 虚拟 CPU 核心数 |2 |
 | 虚拟内存 | |
 | 虚磁盘容量 | |
 | 根分区可用空间 | |
 | 资源分配是否符合对应档位 | |
 
 ![虚机资源](imgs/lab1_resources.png)
-
+![alt text](image-1.png)
 ---
 
 ## 任务五：检查软件安装并用 vim 编写文件
