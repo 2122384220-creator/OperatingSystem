@@ -323,7 +323,7 @@ echo $?
 
 | 项目 | 本人结果 |
 | :--- | :--- |
-| 结束后查询的实际命令 |ps -p 12964 -o pid,ppid,stat,comm
+| 结束后查询的实际命令 |ps -p 12964 -o pid,ppid,stat,comm |
 | `ps` 实际输出/是否仍有数据行 |PID    PPID STAT COMMAND否|
 | 紧接 `ps` 的结束状态 |0 |
 | 磁盘上的 observe 文件是否仍然存在；怎样检查 |存在。重新执行./observe 能够正常运行 |
