@@ -133,7 +133,7 @@ cd ~/os-labs/Lab3
 | 项目 | 你的填写内容 |
 | :--- | :--- |
 | 本人学号、姓名 |2026333019陈旭 |
-| observe.c、family.c 通过哪种方式送进虚拟机 | Remote-SSH / scp |scp
+| observe.c、family.c 通过哪种方式送进虚拟机 | Remote-SSH / scp |通过scp的方式|
 | 练习目录的完整路径（`pwd` 输出） |/home/zx/os-labs/Lab3 |
 | 是否一次成功；若否，原因和解决过程 | 是|
 
