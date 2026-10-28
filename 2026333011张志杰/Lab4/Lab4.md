@@ -204,7 +204,7 @@ echo $?
 
 保存第一张截图：编译命令、运行命令、before/after 输出和结束状态。
 
-![指针修改变量](image-4.png)
+![指针修改变量](imgs\lab4_pointer.png)
 
 ---
 
